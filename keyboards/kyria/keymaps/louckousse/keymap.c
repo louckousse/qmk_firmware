@@ -32,6 +32,14 @@ enum layers {
     CMK,
     LWR,
     RSE,
+    SC2_B,
+    SC2_L,
+    SC2_R,
+};
+
+enum custom_keycodes {
+    KC_GG = SAFE_RANGE,
+    KC_GL,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -74,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_GRV,
       KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
       KC_MINS, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, C(KC_ENT),  KC_PAUS,  XXXXXXX, KC_LEAD, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_CIRC,
-               KC_MPLY, KC_LALT, KC_LCTL, MT(MOD_LSFT, KC_DEL), LT(RSE, KC_ENT), LT(LWR, KC_SPC), MT(MOD_LSFT, KC_BSPC), KC_RCTL, KC_RALT, KC_LGUI
+               KC_MPLY, KC_LALT, KC_LCTL, MT(MOD_LSFT, KC_DEL), LT(RSE, KC_ENT), LT(LWR, KC_BSPC), MT(MOD_LSFT, KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
     ),
 
 /*
@@ -94,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LWR] = LAYOUT(
       C(S(KC_PSCR)), _______, KC_HOME, KC_UP, KC_END, KC_PGUP,                                  KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, KC_PLUS,
       LCA(KC_L), _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                   KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, DF(QWE),
-      KC_SLEP,_______,_______,KC_MPLY,LCA(KC_LEFT),LCA(KC_RGHT),_______,_______,_______,_______,KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
+      _______,_______,_______,KC_MPLY,LCA(KC_LEFT),LCA(KC_RGHT),KC_SLEP,_______,XXXXXXX,_______,KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -105,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |  SAD   |  #   |  !   |  (   |  )   |  /   |                              |   &  |  +   |  *   |  *   |  HUD |  VAD   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |   F1   |  F2  |  F3  |  F4  |  F5  |  F6  |      |      |  |      |      |   F7 |  F8  |  F9  |  F10 |  F11 | F12    |
+ * |   F1   |  F2  |  F3  |  F4  |  F5  |  F6  |      | SC2  |  |      |      |   F7 |  F8  |  F9  |  F10 |  F11 | F12    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -114,8 +122,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [RSE] = LAYOUT(
       RGB_SAI, KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_PIPE, KC_UNDS, KC_PERC,ALGR(KC_5),RGB_HUI,RGB_VAI,
       RGB_SAD, KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_SLSH,                                     KC_AMPR, KC_PLUS, KC_ASTR, KC_ASTR, RGB_HUD, RGB_VAD,
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, RGB_MOD, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, DF(SC2_B), XXXXXXX, RGB_MOD, KC_F7, KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+/*
+ * Layer template
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [SC2_B] = LAYOUT(
+      KC_TAB,  KC_Q,   KC_W,     KC_E,    KC_R,    KC_T,                                        KC_GL,   _______, KC_GG,   _______, _______, _______,
+      KC_ESC,  KC_A,   KC_S,     KC_D,    KC_F,    KC_G,                                        _______, _______, _______, _______, _______, _______,
+      KC_LSFT, KC_Z,   KC_X,     KC_C,    KC_V,    KC_B,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, LT(SC2_L, KC_SPC), _______, _______, _______, _______, _______
+    ),
+
+    [SC2_L] = LAYOUT(
+      _______, KC_GRV,  KC_7,     KC_8,    KC_9,    KC_F1,                                       _______, _______, _______, _______, _______, _______,
+      _______, _______, KC_4,     KC_5,    KC_6,    KC_F2,                                       _______, _______, _______, _______, _______, DF(QWE),
+      _______, KC_LCTL, KC_1,     KC_2,    KC_3,    KC_F3,   _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(CMK),
+                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 // /*
@@ -163,6 +199,26 @@ void matrix_scan_user(void) {
 
         SEQ_THREE_KEYS(KC_G, KC_C, KC_A) { SEND_STRING("git amend"SS_TAP(X_ENT)); }
     }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_GG:  // One key copy/paste
+            if (record->event.pressed) {
+                SEND_STRING("GG");
+            } else {
+                tap_code16(KC_ENT);
+                tap_code16(KC_F10);
+                tap_code16(KC_W);
+            }
+            break;
+        case KC_GL:
+            if (record->event.pressed) {
+                SEND_STRING("GL HF\n");
+            }
+            break;
+    }
+    return true;
 }
 
 uint16_t anim_timer = 0;
@@ -397,19 +453,30 @@ static void render_bongo_anim(void) {
     }
 }
 
+void render_default(void) {
+    switch (get_highest_layer(default_layer_state)) {
+        case QWE: oled_write_P(PSTR("Qwerty\n"), false); break;
+        case CMK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
+        case SC2_B: oled_write_P(PSTR("For the swarm\n"), false); break;
+        default: oled_write_P(PSTR("That's weird\n"), false);
+    }
+}
 
 static void render_layer_status(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case QWE:
-            oled_write_P(get_highest_layer(default_layer_state) == QWE ? PSTR("Qwerty\n") : PSTR("Colemak-DHM\n"), false);
+            render_default();
             break;
         case LWR:
             oled_write_P(PSTR("Lower\n"), false);
             break;
         case RSE:
             oled_write_P(PSTR("Raise\n"), false);
+            break;
+        case SC2_L:
+            oled_write_P(PSTR("Select unit\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
