@@ -48,3 +48,5 @@
 #endif
 
 #endif
+
+#define LEADER_TIMEOUT 300
