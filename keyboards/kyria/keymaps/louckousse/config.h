@@ -21,10 +21,9 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_EFFECT_CHRISTMAS
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_HUE_STEP 5
+  #define RGBLIGHT_SAT_STEP 5
+  #define RGBLIGHT_VAL_STEP 5
   #define RGBLIGHT_SLEEP
   #define RGBLIGHT_LAYERS
 #endif

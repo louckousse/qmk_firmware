@@ -28,42 +28,35 @@
 #endif
 
 enum layers {
-    QWE = 0,
-    CMK,
+    CMK = 0,
+    QWE,
     LWR,
     RSE,
     SC2_B,
     SC2_L,
-    SC2_R,
+    GAME_B,
+    GAME_L,
 };
+
+typedef union {
+    uint32_t raw;
+    struct {
+        bool osIsLinux;
+    };
+} user_config_t;
+
+user_config_t user_config;
 
 enum custom_keycodes {
     KC_GG = SAFE_RANGE,
     KC_GL,
+    DSK_NXT,
+    DSK_PRV,
+    PRINT,
+    LOCK,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
- * Base Layer: QWERTY
- *
- * ,-----------------------------------------.                              ,-----------------------------------------.
- * | TAB  |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  | `~   |
- * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
- * | ESC  |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : | ' "  |
- * |------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+------|
- * | - _  |   Z  |   X  |   C  |   V  |   B  | - _  | Pause|  |      |Leader|   N  |   M  | ,  < | . >  | /  ? | ^    |
- * `--------------------+------+------+------+------+------|  | Lower|------+------+------+------+--------------------'
- *                      | GUI  | Alt  | Ctrl | Raise| Lower|  | Bcksp| Raise|      | Alt  | Play |
- *                      |      |      |      | Del  | Enter|  |      | Space| Shift|      |      |
- *                      `----------------------------------'  `----------------------------------'
- */
-    [QWE] = LAYOUT(
-      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
-      KC_ESC,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_MINS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_MINS,  KC_PAUS,  XXXXXXX, KC_LEAD, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_CIRC,
-              KC_LGUI, KC_LALT, KC_LCTL, LT(RSE, KC_DEL), LT(RSE, KC_ENT),  LT(LWR, KC_SPC), LT(RSE, KC_BSPC), KC_RSFT, KC_RALT, KC_MPLY
-    ),
-
 /*
  * Base Layer: Colemak-dhm
  *
@@ -86,23 +79,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
+ * Base Layer: QWERTY
+ *
+ * ,-----------------------------------------.                              ,-----------------------------------------.
+ * | TAB  |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  | `~   |
+ * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
+ * | ESC  |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : | ' "  |
+ * |------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+------|
+ * | - _  |   Z  |   X  |   C  |   V  |   B  | - _  | Pause|  |      |Leader|   N  |   M  | ,  < | . >  | /  ? | ^    |
+ * `--------------------+------+------+------+------+------|  | Lower|------+------+------+------+--------------------'
+ *                      | GUI  | Alt  | Ctrl | Raise| Lower|  | Bcksp| Raise|      | Alt  | Play |
+ *                      |      |      |      | Del  | Enter|  |      | Space| Shift|      |      |
+ *                      `----------------------------------'  `----------------------------------'
+ */
+    [QWE] = LAYOUT(
+      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
+      KC_ESC,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_MINS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_MINS,  KC_PAUS,  XXXXXXX, KC_LEAD, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_CIRC,
+              KC_LGUI, KC_LALT, KC_LCTL, LT(RSE, KC_DEL), LT(RSE, KC_ENT),  LT(LWR, KC_SPC), LT(RSE, KC_BSPC), KC_RSFT, KC_RALT, KC_MPLY
+    ),
+
+/*
  * Lower Layer: Numpad, Media
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * | Prns   |      | Home | Up   | End  | Pgup |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  | +      |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | Lock   |      | Left | Down | Right| Pgdn |                              | *    | 4 $  | 5 %  | 6 ^  | , <  | Qwerty |
+ * | Lock   |  <M  | Left | Down | Right| Pgdn |                              | *    | 4 $  | 5 %  | 6 ^  | , <  | Qwerty |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | Sleep  |      |      | Play | cal  | car  |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  | Colemak|
+ * |       |  M>  |       |      | <D   | D>   | Sleep| game |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  | Colemak|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [LWR] = LAYOUT(
-      C(S(KC_PSCR)), _______, KC_HOME, KC_UP, KC_END, KC_PGUP,                                  KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, KC_PLUS,
-      LCA(KC_L), _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                   KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, DF(QWE),
-      _______,_______,_______,KC_MPLY,LCA(KC_LEFT),LCA(KC_RGHT),KC_SLEP,_______,XXXXXXX,_______,KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
+      PRINT,   _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, KC_PLUS,
+      LOCK,    KC_MPRV, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, DF(QWE),
+      _______, KC_MNXT, _______, _______, DSK_PRV, DSK_NXT, KC_SLEP, DF(GAME_B), XXXXXXX, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -126,31 +140,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-/*
- * Layer template
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
     [SC2_B] = LAYOUT(
       KC_TAB,  KC_Q,   KC_W,     KC_E,    KC_R,    KC_T,                                        KC_GL,   _______, KC_GG,   _______, _______, _______,
       KC_ESC,  KC_A,   KC_S,     KC_D,    KC_F,    KC_G,                                        _______, _______, _______, _______, _______, _______,
-      KC_LSFT, KC_Z,   KC_X,     KC_C,    KC_V,    KC_B,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      KC_LSFT, KC_Z,   KC_X,     KC_C,    KC_V,    KC_B,    _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, LT(SC2_L, KC_SPC), _______, _______, _______, _______, _______
     ),
 
     [SC2_L] = LAYOUT(
       _______, KC_GRV,  KC_7,     KC_8,    KC_9,    KC_F1,                                       _______, _______, _______, _______, _______, _______,
       _______, _______, KC_4,     KC_5,    KC_6,    KC_F2,                                       _______, _______, _______, _______, _______, DF(QWE),
-      _______, KC_LCTL, KC_1,     KC_2,    KC_3,    KC_F3,   _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(CMK),
+      KC_LCTL, KC_LCTL, KC_1,     KC_2,    KC_3,    KC_F3,   _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, DF(CMK),
+                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [GAME_B] = LAYOUT(
+      KC_TAB,  _______, KC_Q,    KC_W,    KC_E,    KC_R,                                        _______, _______, _______, _______, _______, _______,
+      KC_ESC,  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,                                        _______, _______, _______, _______, _______, _______,
+      KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_C,    _______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, KC_C, LT(GAME_L, KC_ENT), KC_LSFT, KC_SPC,  _______, _______, _______, _______, _______
+    ),
+
+    [GAME_L] = LAYOUT(
+      KC_N,    KC_F1,   KC_4,     KC_5,    KC_6,    KC_LALT,                                     _______, _______, _______, _______, _______, _______,
+      KC_Y,    KC_F2,   KC_1,     KC_2,    KC_3,    KC_J,                                        _______, _______, _______, _______, _______, DF(QWE),
+      KC_P,    KC_F3,   KC_7,     KC_8,    KC_9,    KC_M,    _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, DF(CMK),
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -183,21 +197,11 @@ void matrix_scan_user(void) {
         leading = false;
         leader_end();
 
-        SEQ_TWO_KEYS(KC_G, KC_D) { SEND_STRING("git diff"SS_TAP(X_ENT)); }
-
-        SEQ_THREE_KEYS(KC_G, KC_D, KC_S) { SEND_STRING("git diff --staged"SS_TAP(X_ENT)); }
-
-        SEQ_TWO_KEYS(KC_G, KC_L) { SEND_STRING("git l"SS_TAP(X_ENT)); }
-
-        SEQ_TWO_KEYS(KC_G, KC_F) { SEND_STRING("git fp"SS_TAP(X_ENT)); }
-
-        SEQ_TWO_KEYS(KC_G, KC_S) { SEND_STRING("git status"SS_TAP(X_ENT)); }
-
-        SEQ_TWO_KEYS(KC_G, KC_C) {
-            SEND_STRING("git commit -m "SS_DOWN(X_RALT)"''"SS_UP(X_RALT)SS_TAP(X_LEFT));
+        // Set current OS indicator to Windows
+        SEQ_ONE_KEY(KC_W) {
+            user_config.osIsLinux = !user_config.osIsLinux;
+            eeconfig_update_user(user_config.raw);
         }
-
-        SEQ_THREE_KEYS(KC_G, KC_C, KC_A) { SEND_STRING("git amend"SS_TAP(X_ENT)); }
     }
 }
 
@@ -205,16 +209,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_GG:  // One key copy/paste
             if (record->event.pressed) {
-                SEND_STRING("GG");
+                SEND_STRING("\nGG\n");
             } else {
-                tap_code16(KC_ENT);
                 tap_code16(KC_F10);
                 tap_code16(KC_W);
             }
             break;
         case KC_GL:
             if (record->event.pressed) {
-                SEND_STRING("GL HF\n");
+                SEND_STRING("\nGL HF\n");
+            }
+            break;
+        case DSK_PRV:
+            if (record->event.pressed) {
+                if (user_config.osIsLinux) {
+                    tap_code16(C(A(KC_LEFT)));
+                } else {
+                    tap_code16(C(G(KC_LEFT)));
+                }
+            }
+            break;
+        case DSK_NXT:
+            if (record->event.pressed) {
+                if (user_config.osIsLinux) {
+                    tap_code16(C(A(KC_RIGHT)));
+                } else {
+                    tap_code16(C(G(KC_RIGHT)));
+                }
+            }
+            break;
+        case PRINT:
+            if (record->event.pressed) {
+                if (user_config.osIsLinux) {
+                    tap_code16(C(S(KC_PSCR)));
+                } else {
+                    tap_code16(S(G(KC_S)));
+                }
+            }
+            break;
+        case LOCK:
+            if (record->event.pressed) {
+                if (user_config.osIsLinux) {
+                    tap_code16(LCA(KC_L));
+                } else {
+                    tap_code16(G(KC_L));
+                }
             }
             break;
     }
@@ -367,77 +406,10 @@ static void render_bongo_anim(void) {
             0x11, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x07, 0x07, 0x07, 0x07, 0x0f, 0x0f, 0x0f, 0x0f, 0x1f,
             0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00
         },
-        // JUL
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0xe0, 0xf8, 0xf8, 0xfc, 0x98, 0x18, 0x18,
-            0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0xfe, 0xfe, 0xff, 0xff, 0xf6, 0xf6, 0x60, 0xe0, 0xf0, 0xf0, 0xf0, 0xe0, 0x80, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0xe0, 0xfe, 0x5f, 0x1f, 0x13, 0x11, 0x01, 0x01, 0xff, 0x41, 0x43, 0x45, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0xff, 0xfb, 0xff, 0xff, 0xff, 0xf5, 0xe0, 0x07, 0xff, 0xff, 0xff, 0xff, 0xdf, 0xf8, 0x80, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0xfc, 0xff, 0xfc, 0xf8, 0xf8, 0x08, 0x00, 0x00, 0xfe, 0xff, 0xff, 0xff, 0xff, 0x7e, 0x18, 0x00,
-            0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0xff, 0xff, 0xff, 0x7f, 0x7f, 0xff, 0xff, 0xdd, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x5f, 0xf0,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xbc,
-            0x6f, 0x4f, 0x4f, 0x6f, 0x2e, 0x0a, 0x00, 0x18, 0xff, 0xf7, 0x07, 0x5f, 0x3f, 0x20, 0x40, 0x40,
-            0x07, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x06,
-            0x3f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x03, 0xf9, 0xff, 0xff, 0xfb, 0xff, 0xff, 0xff,
-            0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x38, 0x3c, 0x3c,
-            0x3c, 0x3c, 0x3c, 0x7c, 0x7c, 0xfc, 0xf8, 0xf8, 0xf0, 0xe0, 0xe0, 0xc0, 0x80, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x80, 0x90, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0xff, 0xff, 0x9e, 0xf8, 0xf8, 0xf8, 0xf8,
-            0xf0, 0x40, 0xe0, 0xf0, 0xf0, 0xf8, 0xf8, 0x6f, 0x87, 0xd7, 0xcf, 0xef, 0xff, 0xf7, 0xff, 0xfc,
-            0xf8, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf0, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xf8, 0xe0, 0xe0, 0xf0, 0xf8, 0xf8, 0xfc, 0xfc, 0x7e, 0x3e, 0x1f, 0x1f, 0x1f, 0x0f, 0x0f, 0x07,
-            0x07, 0x0e, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x07, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfc,
-            0x0f, 0x1e, 0x1f, 0x1f, 0x1e, 0x1c, 0x3c, 0x3e, 0x3f, 0x7e, 0xfc, 0xfc, 0xf8, 0x70, 0xf0, 0xf8,
-            0xfc, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xc0, 0xe0, 0xff, 0xff, 0xff, 0x7f, 0x3f,
-            0x07, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xff, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x7f, 0x7f, 0x7f, 0x1f, 0x1f, 0x1f, 0x0f, 0x0f, 0x0f, 0x07,
-            0x03, 0x07, 0x2f, 0x3f, 0x3f, 0x0f, 0x07, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
-            0x07, 0x03, 0x01, 0x00, 0x03, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x03, 0x01, 0x00, 0x00,
-            0x07, 0x0f, 0x07, 0x07, 0x0f, 0x0f, 0x07, 0x07, 0x03, 0x03, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03,
-            0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-        }
     };
 
     if (previous_wpm >= get_current_wpm()) {
-        oled_write_raw_P(frame[2], sizeof(frame[2]));
+        oled_write_raw_P(frame[ANIM_NUM_FRAMES], sizeof(frame[2]));
     } else {
         if(timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
             anim_timer = timer_read();
@@ -451,63 +423,6 @@ static void render_bongo_anim(void) {
         tic = 0;
         previous_wpm = get_current_wpm();
     }
-}
-
-void render_default(void) {
-    switch (get_highest_layer(default_layer_state)) {
-        case QWE: oled_write_P(PSTR("Qwerty\n"), false); break;
-        case CMK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
-        case SC2_B: oled_write_P(PSTR("For the swarm\n"), false); break;
-        default: oled_write_P(PSTR("That's weird\n"), false);
-    }
-}
-
-static void render_layer_status(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case QWE:
-            render_default();
-            break;
-        case LWR:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case RSE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case SC2_L:
-            oled_write_P(PSTR("Select unit\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined\n"), false);
-    }
-}
-
-// OLED utilities
-void oled_write_line(char* str) {
-    static const uint8_t OLED_LINE_CHARACTER_COUNT = OLED_DISPLAY_WIDTH / OLED_FONT_WIDTH;
-    strcat(str, "\n");
-    str[OLED_LINE_CHARACTER_COUNT] = 0;
-    oled_write(str, false);
-}
-
-void write_int_to_string(char* ref, uint8_t wpm) {
-    // Words per minute is just assumed to remain under a thousand.
-    char wpm_string[3];
-    itoa(wpm, wpm_string, 10);
-    strcat(ref, wpm_string);
-}
-
-static void render_owner(void) {
-    oled_write_P(PSTR("Owner: louckousse\n"), false);
-}
-
-// OLED words per minute
-void render_current_wpm(void) {
-    char output[32] = "WPM:   ";
-    uint8_t wpm = get_current_wpm();
-    write_int_to_string(output, wpm);
-    oled_write_line(output);
 }
 
 static void render_wpm_graph(uint8_t max_wpm, uint8_t graph_height) {
@@ -601,12 +516,91 @@ static void render_wpm_graph(uint8_t max_wpm, uint8_t graph_height) {
     }
 }
 
+void render_default(void) {
+    switch (get_highest_layer(default_layer_state)) {
+        case QWE: oled_write_P(PSTR("Qwerty\n"), false); break;
+        case CMK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
+        case SC2_B: oled_write_P(PSTR("For the swarm\n"), false); break;
+        case GAME_B: oled_write_P(PSTR("SHOOT\n"), false); break;
+        default: oled_write_P(PSTR("That's weird\n"), false);
+    }
+}
+
+static void render_layer_status(void) {
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case CMK:
+            render_default();
+            break;
+        case LWR:
+            oled_write_P(PSTR("Lower\n"), false);
+            break;
+        case RSE:
+            oled_write_P(PSTR("Raise\n"), false);
+            break;
+        case SC2_L:
+            oled_write_P(PSTR("Select unit\n"), false);
+            break;
+        case GAME_L:
+            oled_write_P(PSTR("Change weapon\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undefined\n"), false);
+    }
+}
+
+void write_int_to_string(char* ref, uint8_t wpm) {
+    // Words per minute is just assumed to remain under a thousand.
+    char wpm_string[4];
+    itoa(wpm, wpm_string, 10);
+    strcat(ref, wpm_string);
+}
+
+void oled_write_with_int(char* str, uint8_t number) {
+    write_int_to_string(str, number);
+    oled_write_ln(str, false);
+}
+
+static void render_os(void) {
+    if (user_config.osIsLinux) {
+        oled_write_P(PSTR("OS: Linux-mint\n"), false);
+    } else {
+        oled_write_P(PSTR("OS: Windows 10\n"), false);
+    }
+}
+
+// OLED words per minute
+void render_current_wpm(void) {
+    char output[32] = "WPM:   ";
+    uint8_t wpm = get_current_wpm();
+    oled_write_with_int(output, wpm);
+}
+
+static void render_hsv(void) {
+    char hue[32] = "HUE:   ";
+    uint8_t huev = rgblight_get_hue();
+    oled_write_with_int(hue, huev);
+
+    char sat[32] = "SAT:   ";
+    uint8_t satv = rgblight_get_sat();
+    oled_write_with_int(sat, satv);
+
+    char val[32] = "VAL:   ";
+    uint8_t valv = rgblight_get_val();
+    oled_write_with_int(val, valv);
+}
+
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_layer_status();
-        render_owner();
+        render_os();
         render_current_wpm();
-        render_wpm_graph(100, 4);
+        if (get_highest_layer(layer_state) == RSE) {
+            render_hsv();
+        } else {
+            render_wpm_graph(100, 4);
+        }
     } else {
         render_bongo_anim();
     }
@@ -617,7 +611,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (biton32(layer_state)) {
             case RSE:
             case LWR:
-                // backward to go forward instead.
                 if (clockwise) {
                     tap_code16(C(KC_Z));
                 } else {
@@ -625,7 +618,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
             default:
-            // Move whole words. Hold shift to select while moving.
                 if (clockwise) {
                     tap_code16(C(KC_LEFT));
                 } else {
@@ -637,7 +629,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (biton32(layer_state)) {
             case RSE:
             case LWR:
-                // Volume control.
                 if (clockwise) {
                     tap_code(KC_VOLU);
                 } else {
@@ -646,9 +637,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             default:
                 if (clockwise) {
-                    tap_code16(LCA(KC_RIGHT));
+                    if (user_config.osIsLinux) {
+                        tap_code16(C(A(KC_RIGHT)));
+                    } else {
+                        tap_code16(C(G(KC_RIGHT)));
+                    }
                 } else {
-                    tap_code16(LCA(KC_LEFT));
+                    if (user_config.osIsLinux) {
+                        tap_code16(C(A(KC_LEFT)));
+                    } else {
+                        tap_code16(C(G(KC_LEFT)));
+                    }
                 }
         }
     }
