@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SC2_L] = LAYOUT(
       _______, KC_GRV,  KC_7,     KC_8,    KC_9,    KC_F1,                                       _______, _______, _______, _______, _______, _______,
       _______, _______, KC_4,     KC_5,    KC_6,    KC_F2,                                       _______, _______, _______, _______, _______, DF(QWE),
-      KC_LCTL, KC_LCTL, KC_1,     KC_2,    KC_3,    KC_F3,   _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, DF(CMK),
+      _______, KC_LCTL, KC_1,     KC_2,    KC_3,    KC_F3,   _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, DF(CMK),
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -409,7 +409,7 @@ static void render_bongo_anim(void) {
     };
 
     if (previous_wpm >= get_current_wpm()) {
-        oled_write_raw_P(frame[ANIM_NUM_FRAMES], sizeof(frame[2]));
+        oled_write_raw_P(frame[current_anim_frame], sizeof(frame[2]));
     } else {
         if(timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
             anim_timer = timer_read();
@@ -630,23 +630,23 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case RSE:
             case LWR:
                 if (clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
                     tap_code(KC_VOLD);
+                } else {
+                    tap_code(KC_VOLU);
                 }
                 break;
             default:
                 if (clockwise) {
                     if (user_config.osIsLinux) {
-                        tap_code16(C(A(KC_RIGHT)));
-                    } else {
-                        tap_code16(C(G(KC_RIGHT)));
-                    }
-                } else {
-                    if (user_config.osIsLinux) {
                         tap_code16(C(A(KC_LEFT)));
                     } else {
                         tap_code16(C(G(KC_LEFT)));
+                    }
+                } else {
+                    if (user_config.osIsLinux) {
+                        tap_code16(C(A(KC_RIGHT)));
+                    } else {
+                        tap_code16(C(G(KC_RIGHT)));
                     }
                 }
         }
