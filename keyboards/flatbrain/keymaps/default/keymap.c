@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	      KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_BSLS, KC_AMPR, KC_ASTR, RGB_SAI, RGB_HUI, RGB_VAI,
 	      _______, _______, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,                   KC_LBRC, KC_RBRC, KC_BSLS, RGB_SAD, RGB_HUD, RGB_VAD,
 	      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-	               RESET,                     _______, _______, _______, _______, _______ , _______,                  _______
+	               -,                     _______, _______, _______, _______, _______ , _______,                  _______
 	    ),
 
 	// /*
@@ -157,33 +157,31 @@ static void render_qmk_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
+void render_default(void) {
+    oled_write_P(PSTR("Layout: "), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case QWERTY: oled_write_P(PSTR("Qwerty\n"), false); break;
+        case COLEMAK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
+        default: oled_write_P(PSTR("That's weird\n"), false);
+    }
+}
+
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("       Flatbrain rev0.0\n\n"), false);
-
+    oled_write_P(PSTR("     Flatbrain rev0.0\n\n"), false);
+    render_default();
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-        case QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case COLEMAK:
-            oled_write_P(PSTR("Colemak\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined\n"), false);
+        case LOWER: oled_write_P(PSTR("Lower\n"), false); break;
+        case RAISE: oled_write_P(PSTR("Raise\n"), false); break;
+        default: oled_write_P(PSTR("Base\n"), false);
     }
 }
 
 void oled_task_user(void) {
-    render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    render_status();
 }
 
 #endif
