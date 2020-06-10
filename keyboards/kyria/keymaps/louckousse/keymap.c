@@ -53,19 +53,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                              ,-----------------------------------------.
  * | TAB  |   Q  |   W  |   F  |   P  |   B  |                              |   J  |   L  |   U  |   Y  |  ; : |  ^   |
  * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
- * | - _  |   A  |   R  |   S  |   T  |   G  |                              |   M  |   N  |   E  |   I  |  O   | ' "  |
+ * | Esc  |   A  |   R  |   S  |   T  |   G  |                              |   M  |   N  |   E  |   I  |  O   | ' "  |
  * |------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+------|
- * | ; :  |   Z  |   X  |   C  |   D  |   V  | CtEnt| Pause|  | ESC  |Leader|   K  |   H  | ,  < | . >  | /  ? | ` ~  |
+ * | ; :  |   Z  |   X  |   C  |   D  |   V  | Pause| CtEnt|  | ESC  |Leader|   K  |   H  | ,  < | . >  | /  ? | ` ~  |
  * `--------------------+------+------+------+------+------|  |------|------+------+------+------+--------------------'
  *                      | Play | Alt  | Ctrl | Shift| Lower|  | Lower| Shift| Ctrl | Alt  | GUI  |
- *                      |      |      |      | Del  | Enter|  | Space| Space|      |      |      |
+ *                      |      |      |  - _ | Del  | Enter|  | Space| Space|      |      |      |
  *                      `----------------------------------'  `----------------------------------'
  */
     [CMK] = LAYOUT(
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                  KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_CIRC,
-      KC_MINS, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                                  KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
-      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, C(KC_ENT),  KC_PAUS,   LT(RSE, KC_ESC), KC_LEAD, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
-               KC_MPLY, KC_LALT, KC_LCTL, MT(MOD_LSFT, KC_DEL), LT(RSE, KC_ENT), LT(LWR, KC_BSPC), MT(MOD_LSFT, KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
+      KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                                  KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
+      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_PAUS, LT(LWR, C(KC_ENT)),  LT(RSE, KC_ESC), KC_LEAD, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
+          KC_MPLY, KC_LALT, MT(MOD_LCTL, KC_MINS), MT(MOD_LSFT, KC_DEL), LT(RSE, KC_ENT), LT(LWR, KC_BSPC), MT(MOD_LSFT, KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
     ),
 
 /*
