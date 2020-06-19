@@ -19,7 +19,6 @@
 
 enum layers {
     CMK = 0,
-    QWE,
     LWR,
     RSE,
     SC2_B,
@@ -69,27 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
- * Base Layer: QWERTY
- *
- * ,-----------------------------------------.                              ,-----------------------------------------.
- * | TAB  |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  | `~   |
- * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
- * | ESC  |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : | ' "  |
- * |------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+------|
- * | - _  |   Z  |   X  |   C  |   V  |   B  | - _  | Pause|  |      |Leader|   N  |   M  | ,  < | . >  | /  ? | ^    |
- * `--------------------+------+------+------+------+------|  | Lower|------+------+------+------+--------------------'
- *                      | GUI  | Alt  | Ctrl | Raise| Lower|  | Bcksp| Raise|      | Alt  | Play |
- *                      |      |      |      | Del  | Enter|  |      | Space| Shift|      |      |
- *                      `----------------------------------'  `----------------------------------'
- */
-    [QWE] = LAYOUT(
-      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
-      KC_ESC,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_MINS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_MINS,  KC_PAUS,  _______, KC_LEAD, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_CIRC,
-              KC_LGUI, KC_LALT, KC_LCTL, LT(RSE, KC_DEL), LT(RSE, KC_ENT),  LT(LWR, KC_SPC), LT(RSE, KC_BSPC), KC_RSFT, KC_RALT, KC_MPLY
-    ),
-
-/*
  * Lower Layer: Numpad, Media
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -104,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [LWR] = LAYOUT(
-      RGB_SAI, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, DF(SC2_B),
-      RGB_SAD, KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_PLUS, DF(QWE),
-      _______, _______, KC_MPRV, KC_MNXT, DSK_PRV, DSK_NXT, KC_SLEP, DF(GAME_B), _______, _______, KC_0, KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
+      RGB_SAI, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, DF(GAME_B),
+      RGB_SAD, KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_PLUS, DF(SC2_B),
+      _______, _______, KC_MPRV, KC_MNXT, DSK_PRV, DSK_NXT, KC_SLEP, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -134,12 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,   KC_W,     KC_E,    KC_R,    KC_T,                                        KC_GL,   _______, KC_GG,   _______, _______, _______,
       KC_ESC,  KC_A,   KC_S,     KC_D,    KC_F,    KC_G,                                        _______, _______, _______, _______, _______, _______,
       KC_LSFT, KC_Z,   KC_X,     KC_C,    KC_V,    KC_B,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, LT(SC2_L, KC_SPC), _______, _______, _______, _______, _______
+                                 _______, KC_TAB,  KC_2,    KC_5,  MO(SC2_L), _______, _______, _______, _______, _______
     ),
 
     [SC2_L] = LAYOUT(
       _______, KC_GRV,  KC_7,     KC_8,    KC_9,    KC_F1,                                       _______, _______, _______, _______, _______, _______,
-      _______, _______, KC_4,     KC_5,    KC_6,    KC_F2,                                       _______, _______, _______, _______, _______, DF(QWE),
+      _______, _______, KC_4,     KC_5,    KC_6,    KC_F2,                                       _______, _______, _______, _______, _______, _______,
       _______, KC_LCTL, KC_1,     KC_2,    KC_3,    KC_F3,   _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(CMK),
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
@@ -153,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [GAME_L] = LAYOUT(
       KC_N,    KC_F1,   KC_4,     KC_5,    KC_6,    KC_LALT,                                     _______, _______, _______, _______, _______, _______,
-      KC_Y,    KC_F2,   KC_1,     KC_2,    KC_3,    KC_J,                                        _______, _______, _______, _______, _______, DF(QWE),
+      KC_Y,    KC_F2,   KC_1,     KC_2,    KC_3,    KC_J,                                        _______, _______, _______, _______, _______, _______,
       KC_P,    KC_F3,   KC_7,     KC_8,    KC_9,    KC_M,    _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, DF(CMK),
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
@@ -207,7 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_GL:
             if (record->event.pressed) {
-                SEND_STRING("\nGL HF\n");
+                SEND_STRING("\ngl hf\n");
             }
             break;
         case DSK_PRV:
@@ -334,9 +312,8 @@ static void render_anim(void) {
 static void render_default(void) {
     oled_write_P(PSTR("Layout: "), false);
     switch (get_highest_layer(default_layer_state)) {
-        case QWE: oled_write_P(PSTR("Qwerty\n"), false); break;
         case CMK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
-        case SC2_B: oled_write_P(PSTR("For the swarm\n"), false); break;
+        case SC2_B: oled_write_P(PSTR("For the swarm"), false); break;
         case GAME_B: oled_write_P(PSTR("SHOOT\n"), false); break;
         default: oled_write_P(PSTR("That's weird\n"), false);
     }
