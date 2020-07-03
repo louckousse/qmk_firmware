@@ -43,6 +43,7 @@ enum custom_keycodes {
     DSK_PRV,
     PRINT,
     LOCK,
+    KC_OS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMK] = LAYOUT(
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                  KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_CIRC,
       KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                                  KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
-      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_PAUS, LT(LWR, C(KC_ENT)),  LT(RSE, KC_ESC), KC_LEAD, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
+      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_PAUS, LT(LWR, C(KC_ENT)),  LT(RSE, KC_ESC), KC_OS, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
           KC_MPLY, KC_LALT, MT(MOD_LCTL, KC_MINS), MT(MOD_LSFT, KC_DEL), LT(RSE, KC_ENT), LT(LWR, KC_BSPC), MT(MOD_LSFT, KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
     ),
 
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  Prns  |  $   |  @   |  [ { |  ] } |  \   |                              |  €   |  |   |  _   |  %   |  HUI |  VAI   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Lock  |  #   |  !   |  (   |  )   |  /   |                              |  *  |  &   |   +   |  *   |  HUD |  VAD   |
+ * |  Lock  |  #   |  !   |  (   |  )   |  /   |                              |  *  |  &   |   +   |  %   |  HUD |  VAD   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |   F1   |  F2  |  F3  |  {   |  }   |  F4  |  F5  |  F6  |  |      |  RGB |   F7 |  F8  |  F9  |  F10 |  F11 | F12    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -103,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [RSE] = LAYOUT(
       PRINT, KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     ALGR(KC_5), KC_PIPE, KC_UNDS, KC_PERC, RGB_HUI, RGB_VAI,
-      LOCK, KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_SLSH,                                        KC_ASTR, KC_AMPR, KC_PLUS, KC_ASTR, RGB_HUD, RGB_VAD,
+      LOCK,  KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_SLSH,                                        KC_ASTR, KC_AMPR, KC_PLUS, KC_PERC, RGB_HUD, RGB_VAD,
       KC_F1,   KC_F2,   KC_F3,   KC_LCBR, KC_RCBR,   KC_F4,   KC_F5,   KC_F6,    _______, RGB_MOD, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
                                  _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
     ),
@@ -158,21 +159,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        // Set current OS indicator to Windows
-        SEQ_ONE_KEY(KC_W) {
-            user_config.osIsLinux = !user_config.osIsLinux;
-            eeconfig_update_user(user_config.raw);
-        }
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_GG:  // One key copy/paste
@@ -224,6 +210,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+        case KC_OS:
+            if(record->event.pressed) {
+                user_config.osIsLinux = !user_config.osIsLinux;
+                eeconfig_update_user(user_config.raw);
+            }
     }
     return true;
 }
