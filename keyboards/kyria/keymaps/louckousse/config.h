@@ -33,11 +33,7 @@
 // every other tick, lower the resolution to 2.
 #define ENCODER_RESOLUTION 2
 
-// The Leader key allows to flexibly assign macros to key sequences.
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 350
-
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 
 // Allows to use either side as the master. Look at the documentation for info:
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
