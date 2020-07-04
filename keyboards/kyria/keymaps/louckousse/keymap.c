@@ -46,6 +46,7 @@ enum custom_keycodes {
     KC_OS,
     KC_BT,
     KC_QT,
+    KC_TL,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMK] = LAYOUT(
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                  KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_CIRC,
       KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                                  KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
-      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_PAUS, LT(LWR, C(KC_ENT)),  LT(RSE, KC_ESC), KC_OS, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
-          KC_MPLY, KC_LALT, MT(MOD_LCTL, KC_MINS), MT(MOD_LSFT, KC_DEL), LT(RSE, KC_ENT), LT(LWR, KC_BSPC), MT(MOD_LSFT, KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
+      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_PAUS, C(KC_ENT),    LT(RSE, KC_ESC), KC_OS, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
+          KC_MPLY, KC_LALT, CTL_T(KC_MINS), SFT_T(KC_ENT), LT(RSE, KC_DEL),   LT(LWR, KC_BSPC), SFT_T(KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
     ),
 
 /*
@@ -78,25 +79,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |   `    |  #   |  !   |  (   |  )   |  /   |                              | *    | 4 $  | 5 %  | 6 ^  |  +   | Qwerty |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |   '    |      |  €   |  {   |  }   |      |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  | Colemak|
+ * |   '    |      |  €   |  {   |  }   |  |   |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  | Colemak|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [LWR] = LAYOUT(
-      KC_TILD, KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, DF(GAME_B),
+      KC_TL, KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, DF(GAME_B),
       KC_BT,   KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_SLSH,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_PLUS, DF(SC2_B),
-      KC_QT,  _______,ALGR(KC_5),KC_LCBR, KC_RCBR, _______, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
+      KC_QT,  _______,ALGR(KC_5),KC_LCBR, KC_RCBR, KC_PIPE, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Raise Layer: Media, nav
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  Prns  |      | Home | Up   | End  | Pgup |                              |  F9  |  F10 |  F11 |  F12 |  SAI |  VAI   |
+ * |  Prns  | Home | cLeft| Up   | cRght| Pgup |                              |  F9  |  F10 |  F11 |  F12 |  SAI |  VAI   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Lock  |  Tab | Left | Down | Right| Pgdn |                              |  F5  |  F6  |  F7  |  F8  |      |  HUI   |
+ * |  Lock  | End  | Left | Down | Right| Pgdn |                              |  F5  |  F6  |  F7  |  F8  |      |  HUI   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |  Sleep |      |  <M  |  M>  | <D   | D>   |      |      |  |      |      |  F1  |  F2  |  F2  |  F3  |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -105,8 +106,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [RSE] = LAYOUT(
-      PRINT,   _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                     KC_F9,   KC_F10,  KC_F11,  KC_F12, RGB_SAI, RGB_VAI,
-      LOCK,    KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______, RGB_HUI,
+      PRINT, KC_HOME,C(KC_LEFT), KC_UP,C(KC_RGHT), KC_PGUP,                                     KC_F9,   KC_F10,  KC_F11,  KC_F12, RGB_SAI, RGB_VAI,
+      LOCK,    KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______, RGB_HUI,
       KC_SLEP, _______, KC_MPRV, KC_MNXT, DSK_PRV, DSK_NXT, _______, _______, _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
@@ -217,16 +218,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 user_config.osIsLinux = !user_config.osIsLinux;
                 eeconfig_update_user(user_config.raw);
             }
+            break;
         case KC_BT:
             if(record->event.pressed) {
                 tap_code16(KC_GRV);
                 tap_code16(KC_SPC);
             }
+            break;
         case KC_QT:
             if(record->event.pressed) {
                 tap_code16(KC_QUOT);
                 tap_code16(KC_SPC);
             }
+            break;
+        case KC_TL:
+            if(record->event.pressed) {
+                tap_code16(KC_TILD);
+                tap_code16(KC_SPC);
+            }
+            break;
     }
     return true;
 }
