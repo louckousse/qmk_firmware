@@ -23,13 +23,13 @@ typedef void (*rgb_func_pointer)(void);
  *
  * noinline to optimise for firmware size not speed (not in hot path)
  */
-static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
-    if (is_shifted) {
-        dec_func();
-    } else {
-        inc_func();
-    }
-}
+// static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
+//     if (is_shifted) {
+//         dec_func();
+//     } else {
+//         inc_func();
+//     }
+// }
 
 /**
  * Wrapper for animation mode
@@ -56,7 +56,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // Split keyboards need to trigger on key-up for edge-case issue
     if (!record->event.pressed) {
 #endif
-        uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
+        // uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case RGB_TOG:
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)

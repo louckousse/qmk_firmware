@@ -16,17 +16,14 @@
 
 #pragma once
 
-#ifdef OLED_DRIVER_ENABLE
-  #define OLED_DISPLAY_128X64
-#endif
+#define OLED_DISPLAY_128X64
 
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_HUE_STEP 5
-  #define RGBLIGHT_SAT_STEP 5
-  #define RGBLIGHT_VAL_STEP 5
-  #define RGBLIGHT_SLEEP
-  #define RGBLIGHT_LAYERS
-#endif
+#define RGBLIGHT_HUE_STEP 5
+#define RGBLIGHT_SAT_STEP 5
+#define RGBLIGHT_VAL_STEP 5
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_DISABLE_KEYCODES
 
 // EC11K encoders have a different resolution than other EC11 encoders.
 // When using the default resolution of 4, if you notice your encoder skipping
