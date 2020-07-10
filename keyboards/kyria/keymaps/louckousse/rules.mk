@@ -8,3 +8,6 @@ LTO_ENABLE = yes
 
 SRC += oled.c
 SRC += encoder.c
+
+EXTRAFLAGS += -Wno-error=unused-variable -Wno-error=unused-function
+EXTRAFLAGS += -Wno-unused-function -Wno-unused-variable
