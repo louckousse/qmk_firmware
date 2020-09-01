@@ -31,6 +31,7 @@
 #define ENCODER_RESOLUTION 2
 
 #define TAPPING_TERM 150
+#define TAPPING_TERM_PER_KEY
 
 // Allows to use either side as the master. Look at the documentation for info:
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
@@ -41,4 +42,4 @@
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-#define NO_ACTION_ONESHOT
+#define NO_ACTION_ONESHOT // looks like it takes too much size

@@ -16,6 +16,18 @@
 #include QMK_KEYBOARD_H
 #include "other.h"
 
+#define KC_MED TD(0)
+#define ST_ENT SFT_T(KC_ENT)
+#define CTRL_MN CTL_T(KC_MINS)
+#define ALT_BO ALT_T(KC_LBRC)
+#define ALT_BE ALT_T(KC_RBRC)
+#define RSE_DEL LT(RSE, KC_DEL)
+#define LWR_BSP LT(LWR, KC_BSPC)
+#define ST_SPC SFT_T(KC_SPC)
+#define GO_SC2 DF(SC2_B)
+#define GO_GAME DF(GAME_B)
+#define KC_EUR ALGR(KC_5)
+
 enum custom_keycodes {
     KC_GG = SAFE_RANGE,
     KC_GL,
@@ -29,6 +41,7 @@ enum custom_keycodes {
     KC_TL,
 };
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: Colemak-dhm
@@ -38,37 +51,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
  * | Esc  |   A  |   R  |   S  |   T  |   G  |                              |   M  |   N  |   E  |   I  |  O   | ' "  |
  * |------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+------|
- * | ; :  |   Z  |   X  |   C  |   D  |   V  | Pause| CtEnt|  | ESC  |Leader|   K  |   H  | ,  < | . >  | /  ? | ` ~  |
+ * | Caps |   Z  |   X  |   C  |   D  |   V  | Altgr| Pause|  | Prnt |  OS  |   K  |   H  | ,  < | . >  | /  ? | ` ~  |
  * `--------------------+------+------+------+------+------|  |------|------+------+------+------+--------------------'
  *                      | Play | Alt  | Ctrl | Shift| Lower|  | Lower| Shift| Ctrl | Alt  | GUI  |
  *                      |      |      |  - _ | Del  | Enter|  | Space| Space|      |      |      |
  *                      `----------------------------------'  `----------------------------------'
  */
     [CMK] = LAYOUT(
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                  KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_CIRC,
-      KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                                  KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
-      KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_PAUS, C(KC_ENT),    LT(RSE, KC_ESC), KC_OS, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH, KC_GRV,
-          KC_MPLY, KC_LALT, CTL_T(KC_MINS), SFT_T(KC_ENT), LT(RSE, KC_DEL),   LT(LWR, KC_BSPC), SFT_T(KC_SPC), KC_RCTL, KC_RALT, KC_LGUI
+      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_CIRC,
+      KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                        KC_M,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT,
+      KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_RALT, KC_PAUS, PRINT,   KC_OS,   KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,  KC_GRV,
+                                 KC_MED,  ALT_BO,  CTRL_MN, ST_ENT,  RSE_DEL, LWR_BSP, ST_SPC,  KC_RCTL, ALT_BE,  KC_LGUI
     ),
 
 /*
  * Lower Layer: Numpad, Symbol
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |   ~    |  $   |  @   |  [ { |  ] } |  \   |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  |  SC2   |
+ * |   ~    |  $   |  @   |  [ { |  ] } |  \   |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  |  , <   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |   `    |  #   |  !   |  (   |  )   |  /   |                              | *    | 4 $  | 5 %  | 6 ^  |  +   | Qwerty |
+ * |   `    |  #   |  !   |  (   |  )   |  |   |                              | *    | 4 $  | 5 %  | 6 ^  |  +   |  . >   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |   '    |      |  €   |  {   |  }   |  |   |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  | Colemak|
+ * |   '    |  %   |  €   |  {   |  }   |  &   |      |      |  |  FPS |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  | Colemak|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [LWR] = LAYOUT(
-      KC_TL, KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, DF(GAME_B),
-      KC_BT,   KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_SLSH,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_PLUS, DF(SC2_B),
-      KC_QT,  _______,ALGR(KC_5),KC_LCBR, KC_RCBR, KC_PIPE, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  DF(CMK),
+      KC_TL,   KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9,    KC_MINS, KC_COMM,
+      KC_BT,   KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_PIPE,                                     KC_ASTR, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DOT,
+      KC_QT,   KC_PERC, KC_EUR,  KC_LCBR, KC_RCBR, KC_AMPR, _______, _______, GO_GAME, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_EQL,  DF(CMK),
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -79,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |  Lock  | End  | Left | Down | Right| Pgdn |                              |  F5  |  F6  |  F7  |  F8  |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |  Sleep |      |  <M  |  M>  | <D   | D>   |      |      |  |      |      |  F1  |  F2  |  F2  |  F3  |      |        |
+ * |  Sleep |      |  <M  |  M>  | <D   | D>   |      |  SC2 |  |      |      |  F1  |  F2  |  F2  |  F3  |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -88,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [RSE] = LAYOUT(
       PRINT, KC_HOME,C(KC_LEFT), KC_UP,C(KC_RGHT), KC_PGUP,                                     KC_F9,   KC_F10,  KC_F11,  KC_F12, _______, _______,
       LOCK,    KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______, _______,
-      KC_SLEP, _______, KC_MPRV, KC_MNXT, DSK_PRV, DSK_NXT, _______, _______, _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______, _______,
+      KC_SLEP, _______, KC_MPRV, KC_MNXT, DSK_PRV, DSK_NXT, _______, GO_SC2,  _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -219,4 +232,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+void media(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        tap_code(KC_MPLY);
+    } else if (state->count == 2) {
+        tap_code(KC_MNXT);
+    } else if (state->count == 3) {
+        tap_code(KC_MPRV);
+    } else {
+        reset_tap_dance(state);
+    }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [0] = ACTION_TAP_DANCE_FN(media),
+};
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_MED:
+            return 3000; break;
+        default:
+            return TAPPING_TERM;
+    }
 }
