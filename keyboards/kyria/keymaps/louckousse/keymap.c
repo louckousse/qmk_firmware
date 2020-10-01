@@ -27,6 +27,20 @@
 #define GO_SC2 DF(SC2_B)
 #define GO_GAME DF(GAME_B)
 #define KC_EUR ALGR(KC_5)
+// Myryoku specific keycodes
+#define MK_A LGUI_T(KC_A)
+#define MK_R LALT_T(KC_R)
+#define MK_S LCTL_T(KC_S)
+#define MK_T LSFT_T(KC_T)
+#define MK_N LSFT_T(KC_N)
+#define MK_E LCTL_T(KC_E)
+#define MK_I LALT_T(KC_I)
+#define MK_O LGUI_T(KC_O)
+#define MK_X ALGR_T(KC_X)
+#define MK_DOT ALGR_T(KC_DOT)
+#define KC_NP KC_NO // key is not present
+#define KC_NA KC_NO // present but not available for use
+#define KC_NU KC_NO // available but not used
 
 enum custom_keycodes {
     KC_GG = SAFE_RANGE,
@@ -81,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LWR] = LAYOUT(
       KC_TL,   KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9,    KC_MINS, KC_COMM,
       KC_BT,   KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_PIPE,                                     KC_ASTR, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DOT,
-      KC_QT,   KC_PERC, KC_EUR,  KC_LCBR, KC_RCBR, KC_AMPR, _______, _______, GO_GAME, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_EQL,  DF(CMK),
+      KC_QT,   KC_PERC, KC_EUR,  KC_LCBR, KC_RCBR, KC_AMPR, _______, DF(MRK), GO_GAME, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_EQL,  DF(CMK),
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -131,6 +145,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Y,    KC_F2,   KC_1,     KC_2,    KC_3,    KC_J,                                        _______, _______, _______, _______, _______, _______,
       KC_P,    KC_F3,   KC_7,     KC_8,    KC_9,    KC_M,    _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, DF(CMK),
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [MRK] = LAYOUT(
+      XXXXXXX, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT,  XXXXXXX,
+      XXXXXXX, MK_A,    MK_R,    MK_S,    MK_T,    KC_G,                                        KC_M,    MK_N,    MK_E,    MK_I,    MK_O,     XXXXXXX,
+      XXXXXXX, KC_Z,    MK_X,    KC_C,    KC_D,    KC_V,    XXXXXXX, DF(CMK), XXXXXXX, XXXXXXX, KC_K,    KC_H,    KC_COMM, MK_DOT,  KC_SLSH,  XXXXXXX,
+      XXXXXXX, XXXXXXX, LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  XXXXXXX, XXXXXXX
+    ),
+
+    [NAVR] = LAYOUT(
+        XXXXXXX, RESET,   KC_NA,   XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_AGIN, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX,
+        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                                     KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+        XXXXXXX, KC_NA,   KC_ALGR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+                                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,  KC_BSPC, KC_DEL,  XXXXXXX, XXXXXXX
+    ),
+
+    [MOUR] = LAYOUT(
+        XXXXXXX, RESET,   KC_NA,   KC_NA,   KC_NA,   KC_NA,                                       KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU, XXXXXXX,
+        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,                                       KC_NU,   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
+        XXXXXXX, KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NU,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX,
+                                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX
+    ),
+
+    [MEDR] = LAYOUT(
+        XXXXXXX, RESET,   KC_NA,   KC_NA,   KC_NA,   KC_NA,                                       RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,
+        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,                                       KC_NU,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX,
+        XXXXXXX, KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   XXXXXXX,
+                                   XXXXXXX, XXXXXXX, KC_NA,   KC_NA,   KC_NA,   KC_MSTP, KC_MPLY, KC_MUTE, XXXXXXX, XXXXXXX
+    ),
+
+    [FUNL] = LAYOUT(
+        XXXXXXX, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,                                     KC_NA,   KC_NA,   KC_NA,   KC_NA,   RESET,   XXXXXXX,
+        XXXXXXX, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,                                     KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
+        XXXXXXX, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,   XXXXXXX,
+                                   XXXXXXX, XXXXXXX, KC_APP,  KC_SPC,  KC_TAB,  KC_NA,   KC_NA,   KC_NA,   XXXXXXX, XXXXXXX
+    ),
+
+    [NSL] = LAYOUT(
+        XXXXXXX, KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC,                                     KC_NA,   KC_NA,   KC_NA,   KC_NA,   RESET,   XXXXXXX,
+        XXXXXXX, KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,                                      KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
+        XXXXXXX, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,   XXXXXXX,
+                                   XXXXXXX, XXXXXXX, KC_DOT,  KC_0,    KC_MINS, KC_NA,   KC_NA,   KC_NA,   XXXXXXX, XXXXXXX
+    ),
+
+    [NSSL] = LAYOUT(
+        XXXXXXX, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,                                     KC_NA,   KC_NA,   KC_NA,   KC_NA,   RESET,   XXXXXXX,
+        XXXXXXX, KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS,                                     KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
+        XXXXXXX, KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,   XXXXXXX,
+                                   XXXXXXX, XXXXXXX, KC_GT,   KC_RPRN, KC_UNDS, KC_NA,   KC_NA,   KC_NA,   XXXXXXX, XXXXXXX
     ),
 
 // /*

@@ -18,4 +18,11 @@ enum layers {
     SC2_L,
     GAME_B,
     GAME_L,
+    MRK,
+    MEDR,
+    NAVR,
+    MOUR,
+    NSSL,
+    NSL,
+    FUNL
 };

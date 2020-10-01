@@ -113,6 +113,7 @@ static void render_default(void) {
         case CMK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
         case SC2_B: oled_write_P(PSTR("For the swarm"), false); break;
         case GAME_B: oled_write_P(PSTR("SHOOT\n"), false); break;
+        case MRK: oled_write_P(PSTR("Myrioku\n"), false); break;
         default: oled_write_P(PSTR("That's weird\n"), false);
     }
 }
@@ -124,6 +125,12 @@ static void render_layer_status(void) {
         case RSE: oled_write_P(PSTR("Raise\n"), false); break;
         case SC2_L: oled_write_P(PSTR("Select unit\n"), false); break;
         case GAME_L: oled_write_P(PSTR("Change weapon\n"), false); break;
+        case MEDR: oled_write_P(PSTR("Media\n"), false); break;
+        case NAVR: oled_write_P(PSTR("Navigation\n"), false); break;
+        case MOUR: oled_write_P(PSTR("Mouse\n"), false); break;
+        case NSSL: oled_write_P(PSTR("S Num & Sym\n"), false); break;
+        case NSL: oled_write_P(PSTR("Num & Sym\n"), false); break;
+        case FUNL: oled_write_P(PSTR("Func & Sys\n"), false); break;
         default: oled_write_P(PSTR("Base\n"), false);
     }
 }
@@ -168,7 +175,7 @@ void oled_task_user(void) {
         render_os();
         render_hsv();
     } else {
-        render_anim();
+        // render_anim();
         oled_set_cursor(0,7);
         sprintf(wpm_str, "          %03d", get_current_wpm());
         oled_write(wpm_str, false);
