@@ -5,7 +5,7 @@ LEADER_ENABLE = no        # Enable the Leader Key feature
 MOUSEKEY_ENABLE = yes
 WPM_ENABLE = yes
 LTO_ENABLE = yes
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 
 SRC += oled.c
 SRC += encoder.c

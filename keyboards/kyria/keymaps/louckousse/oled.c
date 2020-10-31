@@ -111,6 +111,7 @@ static void render_default(void) {
     oled_write_P(PSTR("Layout: "), false);
     switch (get_highest_layer(default_layer_state)) {
         case CMK: oled_write_P(PSTR("Colemak-DHM\n"), false); break;
+        case CMT: oled_write_P(PSTR("Mod Tap\n"), false); break;
         case SC2_B: oled_write_P(PSTR("For the swarm"), false); break;
         case GAME_B: oled_write_P(PSTR("SHOOT\n"), false); break;
         case MRK: oled_write_P(PSTR("Myrioku\n"), false); break;

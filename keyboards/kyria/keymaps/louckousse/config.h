@@ -22,7 +22,8 @@
 #define RGBLIGHT_SAT_STEP 5
 #define RGBLIGHT_VAL_STEP 5
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_LAYERS
+// #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+
 // #define RGBLIGHT_DISABLE_KEYCODES
 
 // EC11K encoders have a different resolution than other EC11 encoders.
@@ -30,7 +31,7 @@
 // every other tick, lower the resolution to 2.
 #define ENCODER_RESOLUTION 2
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 
 // Allows to use either side as the master. Look at the documentation for info:
