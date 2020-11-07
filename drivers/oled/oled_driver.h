@@ -189,7 +189,7 @@ void oled_render(void);
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
 void oled_set_cursor(uint8_t col, uint8_t line);
-
+void oled_set_cursor_to_index(uint16_t index);
 // Advances the cursor to the next page, writing ' ' if true
 // Wraps to the begining when out of bounds
 void oled_advance_page(bool clearPageRemainder);
@@ -240,6 +240,7 @@ void oled_write_P(const char *data, bool invert);
 void oled_write_ln_P(const char *data, bool invert);
 
 void oled_write_raw_P(const char *data, uint16_t size);
+void oled_write_raw_range_P(const char *data, uint16_t begin, uint16_t end);
 #else
 // Writes a string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
