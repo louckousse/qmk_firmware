@@ -11,21 +11,15 @@ typedef union {
 user_config_t user_config;
 
 enum layers {
-    CMK = 0,
+    CMT = 0,
+    NAVMT,
+    FUNMT,
+    NUMMT,
+    SYMMT,
     LWR,
     RSE,
     SC2_B,
     SC2_L,
     GAME_B,
-    GAME_L,
-    CMT,
-    NAVMT,
-    FUNMT,
-    MRK,
-    MEDR,
-    NAVR,
-    MOUR,
-    NSSL,
-    NSL,
-    FUNL
+    GAME_L
 };
