@@ -14,35 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "other.h"
-
-// #define KC_MED TD(0)
-#define KC_MED KC_MPLY
-#define ST_ENT SFT_T(KC_ENT)
-#define CTRL_MN CTL_T(KC_MINS)
-#define ALT_BO ALT_T(KC_LBRC)
-#define ALT_BE ALT_T(KC_RBRC)
-#define RSE_DEL LT(RSE, KC_DEL)
-#define LWR_BSP LT(LWR, KC_BSPC)
-#define ST_SPC SFT_T(KC_SPC)
-#define GO_SC2 DF(SC2_B)
-#define GO_GAME DF(GAME_B)
-#define KC_EUR ALGR(KC_5)
-// Mod tap specific keycodes
-#define NAV_DEL LT(NAVMT, KC_DEL)
-#define FUN_ENT LT(FUNMT,KC_ENT)
-#define NUM_SPC LT(NUMMT,KC_SPC)
-#define SYM_BSP LT(SYMMT,KC_BSPC)
-#define MK_A LGUI_T(KC_A)
-#define MK_R LALT_T(KC_R)
-#define MK_S LCTL_T(KC_S)
-#define MK_T LSFT_T(KC_T)
-#define MK_N LSFT_T(KC_N)
-#define MK_E LCTL_T(KC_E)
-#define MK_I LALT_T(KC_I)
-#define MK_O LGUI_T(KC_O)
-#define MK_X ALGR_T(KC_X)
-#define MK_DOT ALGR_T(KC_DOT)
+#include "louckousse.h"
 
 enum custom_keycodes {
     KC_GG = SAFE_RANGE,
@@ -59,53 +31,53 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [CMT] = LAYOUT(
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_CIRC,
-      KC_ESC,  MK_A,    MK_R,    MK_S,    MK_T,    KC_G,                                        KC_M,    MK_N,    MK_E,    MK_I,    MK_O,     KC_QUOT,
-      KC_CAPS, KC_Z,    MK_X,    KC_C,    KC_D,    KC_V,    KC_RALT, KC_PAUS, PRINT,   KC_OS,   KC_K,    KC_H,    KC_COMM, MK_DOT,  KC_SLSH,  KC_GRV,
+    [CMT] = LAYOUT_kyria_pretty_wrapper(
+      KC_TAB,  ______________COLEMAK_DH_MT_L1_____________,                                     ______________COLEMAK_DH_MT_R1_____________,  KC_CIRC,
+      KC_ESC,  ______________COLEMAK_DH_MT_L2_____________,                                     ______________COLEMAK_DH_MT_R2_____________,  KC_QUOT,
+      KC_CAPS, ______________COLEMAK_DH_MT_L3_____________, KC_RALT, KC_PAUS, PRINT,   KC_OS,   ______________COLEMAK_DH_MT_R3_____________,  KC_GRV,
                                  XXXXXXX, XXXXXXX, KC_MINS, FUN_ENT, NAV_DEL, SYM_BSP, NUM_SPC, KC_TAB,  XXXXXXX, XXXXXXX
     ),
 
-    [FUNMT] = LAYOUT(
-      XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  PRINT,                                       _______, _______, _______, _______, _______, XXXXXXX,
-      XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   LOCK,                                        _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
-      XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, KC_ALGR, _______, XXXXXXX,
+    [FUNMT] = LAYOUT_kyria_pretty_wrapper(
+      XXXXXXX, __________________FUN_L1___________________,                                     ___________________BLANK___________________, XXXXXXX,
+      XXXXXXX, __________________FUN_L2___________________,                                     ___________________MOD_R___________________, XXXXXXX,
+      XXXXXXX, __________________FUN_L3___________________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, KC_ALGR, _______, XXXXXXX,
                                  XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX
     ),
 
-    [NAVMT] = LAYOUT(
-      XXXXXXX, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                     KC_CIRC, GO_GAME, KC_OS,   GO_SC2,  _______, XXXXXXX,
-      XXXXXXX, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_QUOT, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
-      XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, DSK_PRV, DSK_NXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_GRV,  _______, _______, KC_ALGR, _______, XXXXXXX,
+    [NAVMT] = LAYOUT_kyria_pretty_wrapper(
+      XXXXXXX, __________________NAV_L1___________________,                                     KC_CIRC, GO_GAME, KC_OS,   GO_SC2,  _______, XXXXXXX,
+      XXXXXXX, __________________NAV_L2___________________,                                     KC_QUOT, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
+      XXXXXXX, __________________NAV_L3___________________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_GRV,  _______, _______, KC_ALGR, _______, XXXXXXX,
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, KC_SPC,  KC_ENT, XXXXXXX, XXXXXXX
     ),
 
-    [SYMMT] = LAYOUT(
-      XXXXXXX, KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9,    KC_MINS, XXXXXXX,
-      XXXXXXX, KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_PIPE,                                     KC_ASTR, KC_4,    KC_5,    KC_6,    KC_PLUS, XXXXXXX,
-      XXXXXXX, KC_PERC, KC_EUR,  KC_LCBR, KC_RCBR, KC_AMPR, _______, _______, GO_GAME, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_EQL,  XXXXXXX,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    [SYMMT] = LAYOUT_kyria_pretty_wrapper(
+      XXXXXXX, __________________SYM_L1___________________,                                     ________________NUMBER_L1__________________, XXXXXXX,
+      XXXXXXX, __________________SYM_L2___________________,                                     ________________NUMBER_L2__________________, XXXXXXX,
+      XXXXXXX, __________________SYM_L3___________________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ________________NUMBER_L3__________________, XXXXXXX,
+                                 XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX
     ),
 
-    [NUMMT] = LAYOUT(
-      XXXXXXX, _______, _______, _______, _______, _______,                                     KC_SLSH, KC_7,    KC_8,    KC_9,    KC_MINS, XXXXXXX,
-      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_ASTR, KC_4,    KC_5,    KC_6,    KC_PLUS, XXXXXXX,
-      XXXXXXX, _______, KC_ALGR, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_0,    KC_1,    KC_2,    KC_3,    KC_EQL,  XXXXXXX,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    [NUMMT] = LAYOUT_kyria_pretty_wrapper(
+      XXXXXXX, ___________________BLANK___________________,                                     ________________NUMBER_L1__________________, XXXXXXX,
+      XXXXXXX, ___________________MOD_L___________________,                                     ________________NUMBER_L2__________________, XXXXXXX,
+      XXXXXXX, _______, KC_ALGR, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ________________NUMBER_L3__________________,  XXXXXXX,
+                                 XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX
     ),
 
-    [LWR] = LAYOUT(
-      KC_TL,   KC_DLR,  KC_AT,   KC_LBRC, KC_RBRC, KC_BSLS,                                     KC_SLSH, KC_7,    KC_8,    KC_9,    KC_MINS, KC_COMM,
-      KC_BT,   KC_HASH, KC_EXLM, KC_LPRN, KC_RPRN, KC_PIPE,                                     KC_ASTR, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DOT,
-      KC_QT,   KC_PERC, KC_EUR,  KC_LCBR, KC_RCBR, KC_AMPR, _______, _______, GO_GAME, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_EQL,  _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    [LWR] = LAYOUT_kyria_pretty_wrapper(
+      KC_TL,   __________________SYM_L1___________________,                                     ________________NUMBER_L1__________________, KC_COMM,
+      KC_BT,   __________________SYM_L2___________________,                                     ________________NUMBER_L2__________________, KC_DOT,
+      KC_QT,   __________________SYM_L3___________________, _______, _______, GO_GAME, _______, ________________NUMBER_L3__________________,  _______,
+                                 ___________________BLANK___________________, ___________________BLANK___________________
     ),
 
-    [RSE] = LAYOUT(
+    [RSE] = LAYOUT_kyria_pretty_wrapper(
       PRINT, KC_HOME,C(KC_LEFT), KC_UP,C(KC_RGHT), KC_PGUP,                                     KC_F9,   KC_F10,  KC_F11,  KC_F12, _______, _______,
       LOCK,    KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______, _______,
       KC_SLEP, _______, KC_MPRV, KC_MNXT, DSK_PRV, DSK_NXT, _______, GO_SC2,  _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 ___________________BLANK___________________, ___________________BLANK___________________
     ),
 
     [SC2_B] = LAYOUT(
