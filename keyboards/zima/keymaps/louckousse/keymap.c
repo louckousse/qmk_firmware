@@ -12,12 +12,12 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [MED] = LAYOUT(/* Base */
+    [MED] = LAYOUT(
                  TO(LED),  KC_WBAK,  KC_WFWD,
                  RGB_HUI,  RGB_SAI,  RGB_VAI,
                  KC_LSFT,  KC_MUTE,  AU_TOG,
                  KC_MPRV,  KC_MPLY,  KC_MNXT),
-    [LED] = LAYOUT(/* Base */
+    [LED] = LAYOUT(
                  TO(MED),  RGB_TOG,  KC_WFWD,
                  RGB_HUI,  RGB_SAI,  RGB_VAI,
                  RGB_HUD,  RGB_SAD,  RGB_VAD,
@@ -28,48 +28,26 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
 
-static void get_current_mode(void) {
-    oled_write_P(PSTR("Mode:  "), false);
-    switch (rgblight_get_mode() ) {
-        case RGBLIGHT_MODE_BREATHING:
-            oled_write_P(PSTR("BREATHING\n"), false);
-        case RGBLIGHT_MODE_RAINBOW_MOOD:
-            oled_write_P(PSTR("RAINBOW_MOOD\n"), false);
-        case RGBLIGHT_MODE_KNIGHT:
-            oled_write_P(PSTR("KNIGHT\n"), false);
-        case RGBLIGHT_MODE_CHRISTMAS:
-            oled_write_P(PSTR("CHRISTMAS\n"), false);
-        case RGBLIGHT_MODE_STATIC_GRADIENT:
-            oled_write_P(PSTR("RGB_STATIC_GRADIENT\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("BASE\n"), false);
-    }
-}
-
 static void display_led_layer(void) {
     oled_write_P(PSTR("It's Disco Time\n"), false);
     oled_write_P(PSTR("Mode:  "), false);
-    switch (rgblight_get_mode() ) {
-        case RGBLIGHT_MODE_BREATHING:
-            oled_write_P(PSTR("BREATHING\n"), false);
-            break;
-        case RGBLIGHT_MODE_RAINBOW_MOOD:
-            oled_write_P(PSTR("RAINBOW\n"), false);
-            break;
-        case RGBLIGHT_MODE_KNIGHT:
-            break;
-            oled_write_P(PSTR("KNIGHT\n"), false);
-            break;
-        case RGBLIGHT_MODE_CHRISTMAS:
-            oled_write_P(PSTR("CHRISTMAS\n"), false);
-            break;
-        case RGBLIGHT_MODE_STATIC_GRADIENT:
-            oled_write_P(PSTR("GRADIENT\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("BASE\n"), false);
+
+    int mode = rgblight_get_mode();
+
+    if (mode >= RGBLIGHT_MODE_BREATHING && mode <=RGBLIGHT_MODE_BREATHING + 3) {
+        oled_write_P(PSTR("BREATHING\n"), false);
+    } else if (mode >= RGBLIGHT_MODE_RAINBOW_MOOD && mode <= RGBLIGHT_MODE_RAINBOW_MOOD + 2) {
+        oled_write_P(PSTR("RAINBOW\n"), false);
+    } else if (mode >= RGBLIGHT_MODE_KNIGHT && mode <= RGBLIGHT_MODE_KNIGHT + 2) {
+        oled_write_P(PSTR("KNIGHT\n"), false);
+    } else if (mode == RGBLIGHT_MODE_CHRISTMAS) {
+        oled_write_P(PSTR("CHRISTMAS\n"), false);
+    } else if (mode >= RGBLIGHT_MODE_STATIC_GRADIENT && mode <= RGBLIGHT_MODE_STATIC_GRADIENT + 9) {
+        oled_write_P(PSTR("GRADIENT\n"), false);
+    } else {
+        oled_write_P(PSTR("BASE\n"), false);
     }
+
     static char hsvVal[21] = {0};
     snprintf(hsvVal, sizeof(hsvVal), "h:%d s:%d v:%d %d", rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val(), rgblight_get_mode());
     oled_write_ln(hsvVal, false);
