@@ -10,7 +10,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  ______________COLEMAK_DH_MT_L1_____________,                    ______________COLEMAK_DH_MT_R1_____________,  KC_CIRC,
         KC_ESC,  ______________COLEMAK_DH_MT_L2_____________,                    ______________COLEMAK_DH_MT_R2_____________,  KC_QUOT,
         KC_CAPS, ______________COLEMAK_DH_MT_L3_____________,                    ______________COLEMAK_DH_MT_R3_____________,  KC_GRV,
-        XXXXXXX, KC_PAUS, NAV_DEL, KC_MINS, KC_RALT, FUN_ENT,                    NUM_SPC, KC_OS,   KC_TAB,  SYM_BSP, PRINT,    XXXXXXX
+                                   KC_MINS, KC_A,    KC_B,                       PRINT,   KC_OS, KC_TAB,
+                                            FUN_ENT, NAV_DEL,                    SYM_BSP, NUM_SPC
     ),
 
     [FUNMT] = LAYOUT_bastyl_pretty_wrapper(
@@ -18,7 +19,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, __________________FUN_L1___________________,                    ___________________BLANK___________________, XXXXXXX,
         XXXXXXX, __________________FUN_L2___________________,                    ___________________MOD_R___________________, XXXXXXX,
         XXXXXXX, __________________FUN_L3___________________,                    _______, _______, _______, KC_ALGR, _______, XXXXXXX,
-        XXXXXXX, ___________________BLANK___________________,                    ___________________BLANK___________________, XXXXXXX
+                                   _______, _______, _______,                    _______, _______, _______,
+                                            _______, _______,                    _______, _______
     ),
 
     [NAVMT] = LAYOUT_bastyl_pretty_wrapper(
@@ -26,7 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, __________________NAV_L1___________________,                    KC_CIRC, GO_GAME, KC_OS,   GO_SC2,  _______, XXXXXXX,
         XXXXXXX, __________________NAV_L2___________________,                    KC_QUOT, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
         XXXXXXX, __________________NAV_L3___________________,                    KC_GRV,  _______, _______, KC_ALGR, _______, XXXXXXX,
-        XXXXXXX, ___________________BLANK___________________,                    KC_BSPC, KC_SPC,  _______, _______, KC_ENT,  XXXXXXX
+                                   _______, _______, _______,                    _______, _______, KC_ENT,
+                                            _______, _______,                    KC_BSPC, KC_SPC
     ),
 
     [SYMMT] = LAYOUT_bastyl_pretty_wrapper(
@@ -34,7 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, __________________SYM_L1___________________,                    ________________NUMBER_L1__________________, XXXXXXX,
         XXXXXXX, __________________SYM_L2___________________,                    ________________NUMBER_L2__________________, XXXXXXX,
         XXXXXXX, __________________SYM_L3___________________,                    ________________NUMBER_L3__________________, XXXXXXX,
-        XXXXXXX, ___________________BLANK___________________,                    ___________________BLANK___________________, XXXXXXX
+                                   _______, _______, _______,                    _______, _______, _______,
+                                            _______, _______,                    _______, _______
     ),
 
     [NUMMT] = LAYOUT_bastyl_pretty_wrapper(
@@ -42,6 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, ___________________BLANK___________________,                    ________________NUMBER_L1__________________, XXXXXXX,
         XXXXXXX, ___________________MOD_L___________________,                    ________________NUMBER_L2__________________, XXXXXXX,
         XXXXXXX, _______, KC_ALGR, _______, _______, _______,                    ________________NUMBER_L3__________________, XXXXXXX,
-        XXXXXXX, ___________________BLANK___________________,                    ___________________BLANK___________________, XXXXXXX
+                                   _______, _______, _______,                    _______, _______, _______,
+                                            _______, _______,                    _______, _______
     ),
 };
