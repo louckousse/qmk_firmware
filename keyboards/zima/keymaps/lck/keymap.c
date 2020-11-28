@@ -4,28 +4,32 @@
 enum layers {
     MED = 0,
     LED,
-};
-
-enum custom_keycodes {
-    HS_PCB = SAFE_RANGE,
-    HS_CASE
+    KCD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MED] = LAYOUT(
-                 TO(LED),  KC_WBAK,  KC_WFWD,
-                 RGB_HUI,  RGB_SAI,  RGB_VAI,
-                 KC_LSFT,  KC_MUTE,  AU_TOG,
-                 KC_MPRV,  KC_MPLY,  KC_MNXT),
+        TO(KCD), KC_WBAK, AU_TOG,
+        RGB_HUI, RGB_SAI, KC_VOLU,
+        KC_LSFT, KC_MUTE, KC_VOLD,
+        KC_MPRV, KC_MPLY, KC_MNXT),
+    [KCD] = LAYOUT(
+        TO(LED), C(KC_M), C(S(KC_M)),
+        A(KC_1), A(KC_2), A(KC_3),
+        KC_V,    KC_R,    KC_F,
+        KC_X,    KC_M,    KC_E   ),
     [LED] = LAYOUT(
-                 TO(MED),  RGB_TOG,  KC_WFWD,
-                 RGB_HUI,  RGB_SAI,  RGB_VAI,
-                 RGB_HUD,  RGB_SAD,  RGB_VAD,
-                 RGB_MOD,  RGB_RMOD, KC_MNXT)
+        TO(MED), RGB_TOG,  KC_WFWD,
+        RGB_HUI, RGB_SAI,  RGB_VAI,
+        RGB_HUD, RGB_SAD,  RGB_VAD,
+        RGB_MOD, RGB_RMOD, KC_MNXT)
 };
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_180;
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+static void display_empty_line(int num) {
+    for (int i = 0; i < num; i++) {
+        oled_write_ln(" ", false);
+    }
 }
 
 static void display_led_layer(void) {
@@ -34,10 +38,8 @@ static void display_led_layer(void) {
 
     int mode = rgblight_get_mode();
 
-    if (mode >= RGBLIGHT_MODE_BREATHING && mode <=RGBLIGHT_MODE_BREATHING + 3) {
+    if (mode >= RGBLIGHT_MODE_BREATHING && mode <= RGBLIGHT_MODE_BREATHING + 3) {
         oled_write_P(PSTR("BREATHING\n"), false);
-    } else if (mode >= RGBLIGHT_MODE_RAINBOW_MOOD && mode <= RGBLIGHT_MODE_RAINBOW_MOOD + 2) {
-        oled_write_P(PSTR("RAINBOW\n"), false);
     } else if (mode >= RGBLIGHT_MODE_KNIGHT && mode <= RGBLIGHT_MODE_KNIGHT + 2) {
         oled_write_P(PSTR("KNIGHT\n"), false);
     } else if (mode == RGBLIGHT_MODE_CHRISTMAS) {
@@ -53,28 +55,31 @@ static void display_led_layer(void) {
     oled_write_ln(hsvVal, false);
 }
 
+static void display_kcd_layer(void) {
+    oled_write_P(PSTR("You're a designer?\n"), false);
+    display_empty_line(3);
+}
+
+
 static void render_layer_status(void) {
     switch (get_highest_layer(layer_state)) {
         case MED:
             oled_write_P(PSTR("Media Player\n"), false);
-            oled_write_ln(" ", false);
-            oled_write_ln(" ", false);
-            oled_write_ln(" ", false);
+            display_empty_line(3);
             break;
         case LED:
             display_led_layer();
             break;
+        case KCD:
+            display_kcd_layer();
+            break;
         default:
             oled_write_P(PSTR("Base\n"), false);
-            oled_write_ln(" ", false);
-            oled_write_ln(" ", false);
-            oled_write_ln(" ", false);
+            display_empty_line(3);
     }
 }
 
-void oled_task_user(void) {
-    render_layer_status();
-}
+void oled_task_user(void) { render_layer_status(); }
 
 void matrix_init_user(void) {}
 
