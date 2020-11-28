@@ -28,6 +28,19 @@ typedef union {
 
 user_config_t user_config;
 
+enum custom_keycodes {
+    KC_GG = SAFE_RANGE,
+    KC_GL,
+    DSK_NXT,
+    DSK_PRV,
+    PRINT,
+    LOCK,
+    KC_OS,
+    KC_BT,
+    KC_QT,
+    KC_TL,
+};
+
 #define KC_MED KC_MPLY
 #define ST_ENT SFT_T(KC_ENT)
 #define CTRL_MN CTL_T(KC_MINS)
@@ -56,3 +69,6 @@ user_config_t user_config;
 #define MK_DOT ALGR_T(KC_DOT)
 
 #define LAYOUT_kyria_pretty_wrapper(...) LAYOUT(__VA_ARGS__)
+#define LAYOUT_bastyl_pretty_wrapper(...) LAYOUT_5x6(__VA_ARGS__)
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
