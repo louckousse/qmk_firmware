@@ -6,11 +6,11 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMT] = LAYOUT_bastyl_pretty_wrapper(
-        KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_TAB,  ______________COLEMAK_DH_MT_L1_____________,                    ______________COLEMAK_DH_MT_R1_____________,  KC_CIRC,
         KC_ESC,  ______________COLEMAK_DH_MT_L2_____________,                    ______________COLEMAK_DH_MT_R2_____________,  KC_QUOT,
         KC_CAPS, ______________COLEMAK_DH_MT_L3_____________,                    ______________COLEMAK_DH_MT_R3_____________,  KC_GRV,
-                                   KC_MINS, KC_A,    KC_B,                       PRINT,   KC_OS, KC_TAB,
+                                   KC_ESC,  GO_GAME,  GO_SC2,                    PRINT,   KC_OS, KC_TAB,
                                             FUN_ENT, NAV_DEL,                    SYM_BSP, NUM_SPC
     ),
 
