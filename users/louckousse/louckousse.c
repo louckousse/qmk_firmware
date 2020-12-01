@@ -61,3 +61,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+enum combos {
+  JM_QUOT,
+  BG_GRV,
+  GV_CIRC,
+  JL_MINS
+};
+
+const uint16_t PROGMEM jm_combo[] = {KC_J, KC_M, COMBO_END};
+const uint16_t PROGMEM bg_combo[] = {KC_B, KC_G, COMBO_END};
+const uint16_t PROGMEM gv_combo[] = {KC_G, KC_V, COMBO_END};
+const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [JM_QUOT] = COMBO(jm_combo, KC_QUOT),
+  [BG_GRV] = COMBO(bg_combo, KC_GRV),
+  [GV_CIRC] = COMBO(gv_combo, KC_CIRC),
+  [JL_MINS] = COMBO(jl_combo, KC_MINS)
+};

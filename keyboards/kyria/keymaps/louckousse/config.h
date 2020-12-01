@@ -38,9 +38,6 @@
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
 #define EE_HANDS
 
-// Allows media codes to properly register in macros and rotary encoder code
-#define TAP_CODE_DELAY 10
-
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT // looks like it takes too much size
