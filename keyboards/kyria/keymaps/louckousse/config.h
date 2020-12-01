@@ -24,7 +24,7 @@
 #define RGBLIGHT_SLEEP
 // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 
-// #define RGBLIGHT_DISABLE_KEYCODES
+#define RGBLIGHT_DISABLE_KEYCODES
 
 // EC11K encoders have a different resolution than other EC11 encoders.
 // When using the default resolution of 4, if you notice your encoder skipping

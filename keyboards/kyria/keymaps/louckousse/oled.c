@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <string.h>
 #include <stdio.h>
-#include "other.h"
+#include "louckousse.h"
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
@@ -120,8 +120,6 @@ static void render_default(void) {
 static void render_layer_status(void) {
     oled_write_P(PSTR("Layer:  "), false);
     switch (get_highest_layer(layer_state)) {
-        case LWR: oled_write_P(PSTR("Lower\n"), false); break;
-        case RSE: oled_write_P(PSTR("Raise\n"), false); break;
         case SC2_L: oled_write_P(PSTR("Select unit\n"), false); break;
         case GAME_L: oled_write_P(PSTR("Change weapon\n"), false); break;
         case NAVMT: oled_write_P(PSTR("Navigation\n"), false); break;
@@ -172,7 +170,7 @@ void oled_task_user(void) {
         render_os();
         render_hsv();
     } else {
-        // render_anim();
+        render_anim();
         oled_set_cursor(0,7);
         sprintf(wpm_str, "          %03d", get_current_wpm());
         oled_write(wpm_str, false);
