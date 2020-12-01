@@ -11,8 +11,6 @@ enum userspace_layers {
     FUNMT,
     NUMMT,
     SYMMT,
-    LWR,
-    RSE,
     SC2_B,
     SC2_L,
     GAME_B,
@@ -36,9 +34,6 @@ enum custom_keycodes {
     PRINT,
     LOCK,
     KC_OS,
-    KC_BT,
-    KC_QT,
-    KC_TL,
 };
 
 #define KC_MED KC_MPLY
@@ -46,8 +41,6 @@ enum custom_keycodes {
 #define CTRL_MN CTL_T(KC_MINS)
 #define ALT_BO ALT_T(KC_LBRC)
 #define ALT_BE ALT_T(KC_RBRC)
-#define RSE_DEL LT(RSE, KC_DEL)
-#define LWR_BSP LT(LWR, KC_BSPC)
 #define ST_SPC SFT_T(KC_SPC)
 #define GO_SC2 DF(SC2_B)
 #define GO_GAME DF(GAME_B)

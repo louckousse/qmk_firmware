@@ -57,24 +57,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(user_config.raw);
             }
             break;
-        case KC_BT:
-            if(record->event.pressed) {
-                tap_code16(KC_GRV);
-                tap_code16(KC_SPC);
-            }
-            break;
-        case KC_QT:
-            if(record->event.pressed) {
-                tap_code16(KC_QUOT);
-                tap_code16(KC_SPC);
-            }
-            break;
-        case KC_TL:
-            if(record->event.pressed) {
-                tap_code16(KC_TILD);
-                tap_code16(KC_SPC);
-            }
-            break;
     }
     return true;
 }

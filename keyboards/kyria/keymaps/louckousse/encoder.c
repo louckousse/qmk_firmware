@@ -1,28 +1,32 @@
-#include "other.h"
+#include "louckousse.h"
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
-            case RSE:
-            case LWR:
-                if (clockwise) {
-                    tap_code16(C(KC_Z));
-                } else {
-                    tap_code16(C(S(KC_Z)));
-                }
-                break;
-            default:
+            case NAVMT:
+            case FUNMT:
+            case NUMMT:
+            case SYMMT:
                 if (clockwise) {
                     tap_code16(C(KC_LEFT));
                 } else {
                     tap_code16(C(KC_RGHT));
                 }
                 break;
+            default:
+                if (clockwise) {
+                    tap_code16(C(KC_Z));
+                } else {
+                    tap_code16(C(S(KC_Z)));
+                }
+                break;
         }
     } else if (index == 1) {
         switch (biton32(layer_state)) {
-            case RSE:
-            case LWR:
+            case NAVMT:
+            case FUNMT:
+            case NUMMT:
+            case SYMMT:
                 if (clockwise) {
                     tap_code(KC_VOLD);
                 } else {
