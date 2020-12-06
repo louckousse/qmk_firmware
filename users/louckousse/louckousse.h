@@ -36,16 +36,20 @@ enum custom_keycodes {
     KC_OS,
 };
 
-#define KC_MED KC_MPLY
+#define KC_EUR ALGR(KC_5)
 #define ST_ENT SFT_T(KC_ENT)
+
+// mod tap
 #define CTRL_MN CTL_T(KC_MINS)
 #define ALT_BO ALT_T(KC_LBRC)
 #define ALT_BE ALT_T(KC_RBRC)
+
+// layer change
 #define ST_SPC SFT_T(KC_SPC)
 #define GO_SC2 DF(SC2_B)
 #define GO_GAME DF(GAME_B)
-#define KC_EUR ALGR(KC_5)
-// Mod tap specific keycodes
+
+// Homerow mod specific keycodes
 #define NAV_DEL LT(NAVMT, KC_DEL)
 #define FUN_ENT LT(FUNMT,KC_ENT)
 #define NUM_SPC LT(NUMMT,KC_SPC)
@@ -61,6 +65,7 @@ enum custom_keycodes {
 #define MK_X ALGR_T(KC_X)
 #define MK_DOT ALGR_T(KC_DOT)
 
+// wrapper for using what's in wrappers.h
 #define LAYOUT_kyria_pretty_wrapper(...) LAYOUT(__VA_ARGS__)
 #define LAYOUT_bastyl_pretty_wrapper(...) LAYOUT_5x6(__VA_ARGS__)
 

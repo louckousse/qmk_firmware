@@ -21,9 +21,9 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMT] = LAYOUT_kyria_pretty_wrapper(
-      KC_TAB,  ______________COLEMAK_DH_MT_L1_____________,                                     ______________COLEMAK_DH_MT_R1_____________,  KC_CIRC,
-      KC_ESC,  ______________COLEMAK_DH_MT_L2_____________,                                     ______________COLEMAK_DH_MT_R2_____________,  KC_QUOT,
-      KC_CAPS, ______________COLEMAK_DH_MT_L3_____________, KC_RALT, KC_PAUS, PRINT,   KC_OS,   ______________COLEMAK_DH_MT_R3_____________,  KC_GRV,
+      XXXXXXX, ______________COLEMAK_DH_MT_L1_____________,                                     ______________COLEMAK_DH_MT_R1_____________,  KC_CIRC,
+      XXXXXXX, ______________COLEMAK_DH_MT_L2_____________,                                     ______________COLEMAK_DH_MT_R2_____________,  KC_QUOT,
+      XXXXXXX, ______________COLEMAK_DH_MT_L3_____________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ______________COLEMAK_DH_MT_R3_____________,  KC_GRV,
                                  XXXXXXX, XXXXXXX, KC_ESC,  FUN_ENT, NAV_DEL, SYM_BSP, NUM_SPC, KC_TAB,  XXXXXXX, XXXXXXX
     ),
 
@@ -35,10 +35,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NAVMT] = LAYOUT_kyria_pretty_wrapper(
-      XXXXXXX, __________________NAV_L1___________________,                                     KC_CIRC, GO_GAME, KC_OS,   GO_SC2,  _______, XXXXXXX,
-      XXXXXXX, __________________NAV_L2___________________,                                     KC_QUOT, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
-      XXXXXXX, __________________NAV_L3___________________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_GRV,  _______, _______, KC_ALGR, _______, XXXXXXX,
-                                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, KC_SPC,  KC_ENT, XXXXXXX, XXXXXXX
+      XXXXXXX, __________________NAV_L1___________________,                                     ___________________BLANK___________________, XXXXXXX,
+      XXXXXXX, __________________NAV_L2___________________,                                     ___________________MOD_R___________________, XXXXXXX,
+      XXXXXXX, __________________NAV_L3___________________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GO_SC2,  GO_GAME, KC_OS,   KC_ALGR, _______, XXXXXXX,
+                                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, KC_SPC,  KC_TAB,  XXXXXXX, XXXXXXX
     ),
 
     [SYMMT] = LAYOUT_kyria_pretty_wrapper(

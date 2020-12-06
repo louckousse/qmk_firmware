@@ -1,5 +1,4 @@
 #pragma once
-// #include "louckousse.h"
 /*
 Since our quirky block definitions are basically a list of comma separated
 arguments, we need a wrapper in order for these definitions to be
@@ -8,18 +7,6 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP
 #endif
-
-/*
-Blocks for each of the four major keyboard layouts
-Organized so we can quickly adapt and modify all of them
-at once, rather than for each keyboard, one at a time.
-And this allows for much cleaner blocks in the keymaps.
-For instance Tap/Hold for Control on all of the layouts
-
-NOTE: These are all the same length.  If you do a search/replace
-  then you need to add/remove underscores to keep the
-  lengths consistent.
-*/
 
 #define ______________COLEMAK_DH_MT_L1_____________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #define ______________COLEMAK_DH_MT_L2_____________       MK_A,    MK_R,    MK_S,    MK_T,    KC_G
