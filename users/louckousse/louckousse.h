@@ -48,6 +48,7 @@ enum custom_keycodes {
 #define ST_SPC SFT_T(KC_SPC)
 #define GO_SC2 DF(SC2_B)
 #define GO_GAME DF(GAME_B)
+#define GO_BASE DF(CMT)
 
 // Homerow mod specific keycodes
 #define NAV_DEL LT(NAVMT, KC_DEL)
