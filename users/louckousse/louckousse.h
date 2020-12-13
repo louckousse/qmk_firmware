@@ -59,10 +59,10 @@ enum custom_keycodes {
 #define MK_R LALT_T(KC_R)
 #define MK_S LCTL_T(KC_S)
 #define MK_T LSFT_T(KC_T)
-#define MK_N LSFT_T(KC_N)
-#define MK_E LCTL_T(KC_E)
+#define MK_N RSFT_T(KC_N)
+#define MK_E RCTL_T(KC_E)
 #define MK_I LALT_T(KC_I)
-#define MK_O LGUI_T(KC_O)
+#define MK_O RGUI_T(KC_O)
 #define MK_X ALGR_T(KC_X)
 #define MK_DOT ALGR_T(KC_DOT)
 
