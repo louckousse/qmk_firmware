@@ -121,7 +121,7 @@ static void render_layer_status(void) {
     oled_write_P(PSTR("Layer:  "), false);
     switch (get_highest_layer(layer_state)) {
         case SC2_L: oled_write_P(PSTR("Select unit\n"), false); break;
-        case GAME_L: oled_write_P(PSTR("Change weapon\n"), false); break;
+        case GAME_L: oled_write_P(PSTR("Change weapon"), false); break;
         case NAVMT: oled_write_P(PSTR("Navigation\n"), false); break;
         case FUNMT: oled_write_P(PSTR("Function\n"), false); break;
         case SYMMT: oled_write_P(PSTR("Symbol\n"), false); break;
