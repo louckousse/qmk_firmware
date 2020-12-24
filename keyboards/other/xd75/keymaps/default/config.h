@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright 2017 Benjamin Kesselring
+=======
+/* Copyright 2020 Harrison Chan (Xelus)
+>>>>>>> main
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+<<<<<<< HEAD
 #pragma once
 
 // place overrides here
+=======
+#include "config_common.h"
+>>>>>>> main

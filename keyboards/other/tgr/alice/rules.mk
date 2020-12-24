@@ -20,3 +20,8 @@ COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
+<<<<<<< HEAD
+=======
+
+LAYOUTS = alice_split_bs
+>>>>>>> main
