@@ -35,3 +35,6 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________FUN_L1___________________        KC_F9,   KC_F10,  KC_F11,  KC_F12,  PRINT
 #define __________________FUN_L2___________________        KC_F5,   KC_F6,   KC_F7,   KC_F8,   LOCK
 #define __________________FUN_L3___________________        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_SLEP
+
+#define __________________NROW_L___________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define __________________NROW_R___________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
