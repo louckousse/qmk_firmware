@@ -60,6 +60,8 @@ doxygen/
 .vscode/ipch/
 .stfolder
 .tags
+/keyboards/
+/users/
 
 # ignore image files
 *.png
