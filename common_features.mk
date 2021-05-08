@@ -112,6 +112,12 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
+ifeq ($(strip $(TRACKBALL_ENABLE)), yes)
+    OPT_DEFS += -DTRACKBALL_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/trackball
+    SRC += $(DRIVER_PATH)/trackball/pimoroni.c
+endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)

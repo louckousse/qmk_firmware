@@ -49,6 +49,10 @@
 #    include "rgb_matrix.h"
 #endif
 
+#ifdef TRACKBALL_ENABLE
+#    include "pimoroni.h"
+#endif
+
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
